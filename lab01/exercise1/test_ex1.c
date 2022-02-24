@@ -14,6 +14,15 @@ int main(int argc, char **argv) {
     int num_z = num_occurrences(str, 'z');
     assert(num_z == 0);
 
+    int num_A = num_occurrences(str, 'A');
+    assert(num_A == 0); // add upperclass letter test
+
+    int num_exclamationMark = num_occurrences(str, '!');
+    assert(num_exclamationMark == 1); // add exlamationMark test
+
+    int num_empty_string = num_occurrences("", 'a');
+    assert(num_empty_string == 0); // add test for empty string
+
     /* TODO: Think of a scenario that is not tested by the current test cases. Create one additional test case to test this scenario. */
 
     printf("Congrats! If you have made it to this line, your Part 1 Test cases are all passing!\n");
@@ -34,7 +43,33 @@ int main(int argc, char **argv) {
     assert(dna_seq_2.C_count == 3);
     assert(dna_seq_2.G_count == 0);
     assert(dna_seq_2.T_count == 0);
+    
+    // test for empty string
+    DNA_sequence dna_seq_3;
+    strcpy(dna_seq_3.sequence, "");
+    compute_nucleotide_occurrences(&dna_seq_3);
+    assert(dna_seq_3.A_count == 0);
+    assert(dna_seq_3.C_count == 0);
+    assert(dna_seq_3.G_count == 0);
+    assert(dna_seq_3.T_count == 0);
 
+    // test for all same letters
+    DNA_sequence dna_seq_4;
+    strcpy(dna_seq_4.sequence, "AAAAAAAAAAAAAAAAAAAA");
+    compute_nucleotide_occurrences(&dna_seq_4);
+    assert(dna_seq_4.A_count == 20);
+    assert(dna_seq_4.C_count == 0);
+    assert(dna_seq_4.G_count == 0);
+    assert(dna_seq_4.T_count == 0);
+
+    // test when we have other character other than "ACGT"
+    DNA_sequence dna_seq_5;
+    strcpy(dna_seq_5.sequence, "Hello,ACGT,world");
+    compute_nucleotide_occurrences(&dna_seq_5);
+    assert(dna_seq_5.A_count == 1);
+    assert(dna_seq_5.C_count == 1);
+    assert(dna_seq_5.G_count == 1);
+    assert(dna_seq_5.T_count == 1);
     /* TODO: Think of a scenario that is not tested by the current test cases. Create one additional test case to test this scenario. */
 
     printf("Congrats! If you have made it to this line, your Part 2 Test cases are all passing!\n");
